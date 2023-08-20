@@ -3,6 +3,6 @@
 
 <template>
   <div>
-    Hello World !
+    <Calendar />
   </div>
 </template>
