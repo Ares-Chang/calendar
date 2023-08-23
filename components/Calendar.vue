@@ -7,26 +7,40 @@ interface Days {
   isCurrentMonth: boolean
   isCurrentDate: boolean
 }
+enum Model {
+  Monday = 'Monday',
+  Sunday = 'Sunday',
+}
 
 const now = useNow()
 const config = ref({
   year: now.value.getFullYear(),
   month: now.value.getMonth() + 1,
   day: now.value.getDate(),
+  model: Model.Sunday,
 })
 
-const weeks = ['一', '二', '三', '四', '五', '六', '日']
+const weeks = computed(
+  () =>
+    config.value.model === Model.Sunday
+      ? ['日', '一', '二', '三', '四', '五', '六']
+      : ['一', '二', '三', '四', '五', '六', '日'],
+)
 const days = computed(() => {
   const { year, month, day } = config.value
   const start = new Date(year, month - 1, 1)
   const end = new Date(year, month, 0)
-  const lastMonth = [...[...Array((start.getDay() || 7) - 1).keys()].map(key => -key).reverse()]
-  const nextMonth = [...[...Array(7 - (end.getDay() || 7)).keys()].map(key => key + 1)]
+  const isSunday = config.value.model === Model.Sunday
+  const lastMonth = [...[...Array((start.getDay() || 7) - (isSunday ? 1 : 0)).keys()].map(key => -key).reverse()]
+  const nextMonth = [...[...Array(7 - (end.getDay() || 7) - (isSunday ? 0 : 1)).keys()].map(key => key + 1)]
 
   const days: Days[] = []
   const list = [lastMonth, [...Array(end.getDate()).keys()], nextMonth]
 
   list.forEach((week, key) => {
+    if (week.length === 7)
+      return
+
     week.forEach((num) => {
       const d = new Date(start)
       if (key === 0) {
@@ -62,39 +76,44 @@ function getDayObj(date: Date) {
   }
 }
 
-function prevMonth() {
+// 修改月份
+function changeMonth(type: 'preve' | 'next') {
   const { year, month } = config.value
-  if (month === 1)
-    config.value = { year: year - 1, month: 12, day: config.value.day }
-  else
-    config.value = { year, month: month - 1, day: config.value.day }
-}
+  let options = {}
+  if (type === 'preve')
+    options = month === 1 ? { year: year - 1, month: 12 } : { year, month: month - 1 }
+  else if (type === 'next')
+    options = month === 12 ? { year: year + 1, month: 1 } : { year, month: month + 1 }
 
-function nextMonth() {
-  const { year, month } = config.value
-  if (month === 12)
-    config.value = { year: year + 1, month: 1, day: config.value.day }
-  else
-    config.value = { year, month: month + 1, day: config.value.day }
+  config.value = { ...config.value, ...options }
 }
 
 function handleClick({ year, month, day }: Days) {
-  config.value = { year, month, day }
+  config.value = { ...config.value, year, month, day }
 }
 </script>
 
 <template>
   <div>
-    <div>
-      <button @click="prevMonth">
+    <div flex justify-center gap-2>
+      <button @click="changeMonth('preve')">
         上个月
       </button>
-      <button @click="nextMonth">
+      <button @click="changeMonth('next')">
         下个月
       </button>
     </div>
-    <div>
-      {{ config }}
+    <div flex items-center justify-center gap-2>
+      <span>周第一天:</span>
+      <div>
+        <input id="Sunday" v-model="config.model" type="radio" name="drone" value="Sunday" checked>
+        <label for="Sunday">周日</label>
+      </div>
+
+      <div>
+        <input id="Monday" v-model="config.model" type="radio" name="drone" value="Monday">
+        <label for="Monday">周一</label>
+      </div>
     </div>
   </div>
 
