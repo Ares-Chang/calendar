@@ -1,4 +1,13 @@
 <script setup lang="ts">
+interface Days {
+  year: number
+  month: number
+  day: number
+  value: string
+  isCurrentMonth: boolean
+  isCurrentDate: boolean
+}
+
 const now = useNow()
 const config = ref({
   year: now.value.getFullYear(),
@@ -8,39 +17,35 @@ const config = ref({
 
 const weeks = ['一', '二', '三', '四', '五', '六', '日']
 const days = computed(() => {
-  const { year, month } = config.value
+  const { year, month, day } = config.value
   const start = new Date(year, month - 1, 1)
   const end = new Date(year, month, 0)
   const lastMonth = [...[...Array((start.getDay() || 7) - 1).keys()].map(key => -key).reverse()]
   const nextMonth = [...[...Array(7 - (end.getDay() || 7)).keys()].map(key => key + 1)]
 
-  interface Days {
-    year: number
-    month: number
-    day: number
-    value: string
-    isCurrentMonth: boolean
-  }
   const days: Days[] = []
   const list = [lastMonth, [...Array(end.getDate()).keys()], nextMonth]
 
   list.forEach((week, key) => {
-    week.forEach((day) => {
+    week.forEach((num) => {
       const d = new Date(start)
       if (key === 0) {
-        d.setDate(day)
+        d.setDate(num)
       }
       else if (key === 1) {
-        d.setDate(d.getDate() + day)
+        d.setDate(d.getDate() + num)
       }
       else {
-        d.setDate(day)
+        d.setDate(num)
         d.setMonth(d.getMonth() + 1)
       }
+
+      const value = useDateFormat(d, 'YYYY-MM-DD').value
       days.push({
         ...getDayObj(d),
-        value: useDateFormat(d, 'YYYY-MM-DD').value,
+        value,
         isCurrentMonth: key === 1,
+        isCurrentDate: value === useDateFormat(`${year}-${month}-${day}`, 'YYYY-MM-DD').value,
       })
     })
   })
@@ -72,6 +77,10 @@ function nextMonth() {
   else
     config.value = { year, month: month + 1, day: config.value.day }
 }
+
+function handleClick({ year, month, day }: Days) {
+  config.value = { year, month, day }
+}
 </script>
 
 <template>
@@ -94,13 +103,15 @@ function nextMonth() {
       {{ key }}
     </div>
     <div
-      v-for="({ day, isCurrentMonth }, index) in days" :key="index"
+      v-for="(item, index) in days" :key="index"
       bg="gray/10 hover:gray/20"
       b="~ gray-400/20"
       relative cursor-pointer rd
       :class="{
-        'bg-gray/5 color-gray/200': !isCurrentMonth,
+        'bg-gray/5 color-gray/200': !item.isCurrentMonth,
+        'bg-emerald!': item.isCurrentDate,
       }"
+      @click="handleClick(item)"
     >
       <div pt-full />
       <div
@@ -111,7 +122,7 @@ function nextMonth() {
         gap-2 p-2
       >
         <div text-2xl>
-          {{ day }}
+          {{ item.day }}
         </div>
         <div flex="~ wrap" items-center justify-center gap-2>
           <div
