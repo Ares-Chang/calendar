@@ -104,7 +104,7 @@ function handleClick({ year, month, day }: Days) {
       </button>
     </div>
     <div flex items-center justify-center gap-2>
-      <span>周第一天:</span>
+      <span>星期开始于:</span>
       <div>
         <input id="Sunday" v-model="config.model" type="radio" name="drone" value="Sunday" checked>
         <label for="Sunday">周日</label>
