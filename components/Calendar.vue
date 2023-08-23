@@ -11,7 +11,7 @@ const days = computed(() => {
   const { year, month } = config.value
   const start = new Date(year, month - 1, 1)
   const end = new Date(year, month, 0)
-  const lastMonth = [...[...Array(start.getDay() - 1).keys()].map(key => -key).reverse()]
+  const lastMonth = [...[...Array((start.getDay() || 7) - 1).keys()].map(key => -key).reverse()]
   const nextMonth = [...[...Array(7 - (end.getDay() || 7)).keys()].map(key => key + 1)]
 
   interface Days {
