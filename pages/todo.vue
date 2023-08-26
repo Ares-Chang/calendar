@@ -1,9 +1,11 @@
 <script setup lang="ts">
-
+definePageMeta({
+  layout: 'home',
+})
 </script>
 
 <template>
   <div>
-    <Navbar />
+    content
   </div>
 </template>

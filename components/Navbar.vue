@@ -49,8 +49,7 @@ const list = ref([
   <div
     bg="gray-100/80 dark:truegray-600/40"
     color="gray-800 dark:gray-300"
-    select-none
-    p-3 text-left
+    select-none p-3
   >
     <h2 bg="slate-400/50 dark:gray-600/60" rd-1 p-2 text="center xl" font-bold>
       Todo
