@@ -1,7 +1,7 @@
 <template>
   <main h-full flex>
     <Navbar h-full w-80 />
-    <div w-full flex="~ col">
+    <div flex="~ 1 col" overflow-hidden>
       <Titlebar />
       <div flex-1 overflow-auto p-4>
         <slot />
