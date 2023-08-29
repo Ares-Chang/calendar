@@ -18,6 +18,12 @@ const config = ref({
   month: now.value.getMonth() + 1,
   day: now.value.getDate(),
   model: Model.Sunday,
+  value: '',
+})
+
+watchEffect(() => {
+  const { year, month, day } = config.value
+  config.value.value = useDateFormat(`${year}-${month}-${day}`, 'YYYY-MM-DD').value
 })
 
 const weeks = computed(
@@ -59,7 +65,7 @@ const days = computed(() => {
         ...getDayObj(d),
         value,
         isCurrentMonth: key === 1,
-        isCurrentDate: value === useDateFormat(`${year}-${month}-${day}`, 'YYYY-MM-DD').value,
+        isCurrentDate: value === config.value.value,
       })
     })
   })
@@ -94,60 +100,52 @@ function handleClick({ year, month, day }: Days) {
 </script>
 
 <template>
-  <div>
-    <div flex justify-center gap-2>
-      <button @click="changeMonth('preve')">
-        上个月
-      </button>
-      <button @click="changeMonth('next')">
-        下个月
-      </button>
-    </div>
-    <div flex items-center justify-center gap-2>
-      <span>星期开始于:</span>
-      <div>
-        <input id="Sunday" v-model="config.model" type="radio" name="drone" value="Sunday" checked>
-        <label for="Sunday">周日</label>
-      </div>
-
-      <div>
-        <input id="Monday" v-model="config.model" type="radio" name="drone" value="Monday">
-        <label for="Monday">周一</label>
-      </div>
-    </div>
-  </div>
-
-  <div grid="~ cols-7" select-none gap-2>
-    <div v-for="key in weeks" :key="key" bg="gray-700" b="~ gray-400/20" rd p-2>
-      {{ key }}
-    </div>
-    <div
-      v-for="(item, index) in days" :key="index"
-      bg="gray/10 hover:gray/20"
-      b="~ gray-400/20"
-      relative cursor-pointer rd
-      :class="{
-        'bg-gray/5 color-gray/200': !item.isCurrentMonth,
-        'bg-emerald!': item.isCurrentDate,
-      }"
-      @click="handleClick(item)"
-    >
-      <div pt-full />
-      <div
-        flex="~ col"
-        absolute left-0 top-0
-        h-full w-full
-        items-center justify-center
-        gap-2 p-2
-      >
-        <div text-2xl>
-          {{ item.day }}
+  <div select-none text-center all:transition-400>
+    <div>
+      <div mb-1 flex items-center justify-center gap-2>
+        <div i-carbon-caret-left icon-btn title="上个月" @click="changeMonth('preve')" />
+        <div border="b gray-4/40 hover:gray-4/80" cursor-pointer>
+          {{ config.value }}
         </div>
-        <div flex="~ wrap" items-center justify-center gap-2>
-          <div
-            v-for="(_, dot) in 7" :key="dot"
-            h-2 w-2 rd-full bg-pink
-          />
+        <div i-carbon-caret-right icon-btn title="下个月" @click="changeMonth('next')" />
+      </div>
+      <div mb-2 flex items-center justify-center gap-2>
+        <span>星期开始于:</span>
+        <div>
+          <input id="Sunday" v-model="config.model" type="radio" name="drone" value="Sunday" checked>
+          <label for="Sunday">周日</label>
+        </div>
+
+        <div>
+          <input id="Monday" v-model="config.model" type="radio" name="drone" value="Monday">
+          <label for="Monday">周一</label>
+        </div>
+      </div>
+    </div>
+
+    <div grid="~ cols-7" select-none gap-2>
+      <div v-for="key in weeks" :key="key" bg="gray-700" b="~ gray-400/20" rd p-2>
+        {{ key }}
+      </div>
+      <div
+        v-for="(item, index) in days" :key="index"
+        bg="gray/10 hover:gray/20"
+        b="~ gray-400/20"
+        relative cursor-pointer rd
+        :class="{
+          'bg-gray/5 color-gray/200': !item.isCurrentMonth,
+          'bg-emerald!': item.isCurrentDate,
+        }"
+        @click="handleClick(item)"
+      >
+        <div pt-full />
+        <div
+          flex="~ col"
+          absolute left-0 top-0
+          h-full w-full
+          items-center justify-center p-2
+        >
+          {{ item.day }}
         </div>
       </div>
     </div>
