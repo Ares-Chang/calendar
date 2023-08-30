@@ -33,7 +33,7 @@ const weeks = computed(
       : ['一', '二', '三', '四', '五', '六', '日'],
 )
 const days = computed(() => {
-  const { year, month, day } = config.value
+  const { year, month } = config.value
   const start = new Date(year, month - 1, 1)
   const end = new Date(year, month, 0)
   const isSunday = config.value.model === Model.Sunday
@@ -100,11 +100,11 @@ function handleClick({ year, month, day }: Days) {
 </script>
 
 <template>
-  <div select-none text-center all:transition-400>
+  <div select-none text-center>
     <div>
       <div mb-1 flex items-center justify-center gap-2>
         <div i-carbon-caret-left icon-btn title="上个月" @click="changeMonth('preve')" />
-        <div border="b gray-4/40 hover:gray-4/80" cursor-pointer>
+        <div border="b gray-4/40 hover:gray-4/80" cursor-pointer transition-400>
           {{ config.value }}
         </div>
         <div i-carbon-caret-right icon-btn title="下个月" @click="changeMonth('next')" />
@@ -124,16 +124,16 @@ function handleClick({ year, month, day }: Days) {
     </div>
 
     <div grid="~ cols-7" select-none gap-2>
-      <div v-for="key in weeks" :key="key" bg="gray-700" b="~ gray-400/20" rd p-2>
+      <div v-for="key in weeks" :key="key" bg="gray-600/90 dark:gray-700" b="~ gray-400/20" rd p-2 color-gray-200>
         {{ key }}
       </div>
       <div
         v-for="(item, index) in days" :key="index"
         bg="gray/10 hover:gray/20"
-        b="~ gray-400/20"
+        b="~ gray-400/20" color="gray-8 dark:gray-200"
         relative cursor-pointer rd
         :class="{
-          'bg-gray/5 color-gray/200': !item.isCurrentMonth,
+          'bg-gray/5 color-gray/200!': !item.isCurrentMonth,
           'bg-emerald!': item.isCurrentDate,
         }"
         @click="handleClick(item)"
