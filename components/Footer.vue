@@ -1,7 +1,18 @@
 <template>
-  <div text="xl gray4" m-5 flex="~ gap3" justify-center>
-    <NuxtLink i-carbon-campsite to="/" />
-    <a i-carbon-logo-github href="https://github.com/Ares-Chang/calendar" target="_blank" />
+  <div text="xl gray4" m="5 t-0" flex="~ gap3" justify-center>
+    <UButton
+      to="/"
+      icon="i-carbon-campsite"
+      color="gray"
+      variant="ghost"
+    />
+    <UButton
+      icon="i-carbon-logo-github"
+      color="gray"
+      variant="ghost"
+      to="https://github.com/Ares-Chang/calendar"
+      target="_blank"
+    />
     <DarkToggle />
   </div>
 </template>
