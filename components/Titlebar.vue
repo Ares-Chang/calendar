@@ -15,6 +15,7 @@
         variant="ghost"
         to="https://github.com/Ares-Chang/calendar"
         target="_blank"
+        :ui="{ icon: { size: { sm: 'h-5 w-5' } } }"
       />
       <DarkToggle />
     </div>
