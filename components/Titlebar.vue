@@ -8,7 +8,9 @@
       Titlebar
     </h2>
 
-    <div>
+    <div flex>
+      <DarkToggle />
+
       <UButton
         icon="i-carbon-logo-github"
         color="gray"
@@ -17,7 +19,6 @@
         target="_blank"
         :ui="{ icon: { size: { sm: 'h-5 w-5' } } }"
       />
-      <DarkToggle />
     </div>
   </div>
 </template>
