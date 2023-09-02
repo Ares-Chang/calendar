@@ -1,21 +1,21 @@
 <script setup lang="ts">
 const color = useColorMode()
 
-useHead({
-  meta: [{
-    id: 'theme-color',
-    name: 'theme-color',
-    content: () => color.value === 'dark' ? '#222222' : '#ffffff',
-  }],
+const isDark = computed({
+  get() {
+    return color.value === 'dark'
+  },
+  set() {
+    color.preference = color.value === 'dark' ? 'light' : 'dark'
+  },
 })
-
-function toggleDark() {
-  color.preference = color.value === 'dark' ? 'light' : 'dark'
-}
 </script>
 
 <template>
-  <button class="!outline-none" @click="toggleDark">
-    <div class="i-carbon-sun dark:i-carbon-moon" />
-  </button>
+  <UButton
+    :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'"
+    color="gray"
+    variant="ghost"
+    @click="isDark = !isDark"
+  />
 </template>

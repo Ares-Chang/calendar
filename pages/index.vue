@@ -5,7 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div h-full flex>
+  <div h-full flex gap-4>
     <div flex-1>
       content
       <UBadge color="white" variant="solid">
@@ -13,7 +13,10 @@ definePageMeta({
       </UBadge>
     </div>
     <div w-80 flex="~ col gap-2" justify-between>
-      <div h-50 border="~ gray-4 rd-2" />
+      <UCard h-50>
+        Body
+      </UCard>
+
       <Calendar />
     </div>
   </div>
