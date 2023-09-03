@@ -45,6 +45,13 @@ export default defineNuxtConfig({
 
   pwa,
 
+  pinia: {
+    autoImports: [
+      'defineStore',
+      ['defineStore', 'definePiniaStore'],
+    ],
+  },
+
   devtools: {
     enabled: true,
   },
