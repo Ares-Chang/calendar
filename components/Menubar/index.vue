@@ -15,6 +15,8 @@ const menus = ref<MenusList[]>([
     ],
   },
 ])
+
+const showAdd = ref(false)
 </script>
 
 <template>
@@ -37,10 +39,12 @@ const menus = ref<MenusList[]>([
               size="xs"
               icon="i-carbon-add"
               color="gray"
+              @click="showAdd = true"
             />
           </div>
         </template>
       </MenubarItems>
     </div>
+    <MenubarAdd v-model="showAdd" @close="showAdd = false" />
   </div>
 </template>
