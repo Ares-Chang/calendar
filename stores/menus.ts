@@ -1,23 +1,13 @@
+import { acceptHMRUpdate } from 'pinia'
+
 export const useMenus = defineStore('menus', () => {
-  const list = ref([
+  const list = ref<MenusList[]>([
     {
       label: '区域',
       children: [
         {
           icon: 'i-carbon-folder',
           label: 'Gather',
-        },
-        {
-          icon: 'i-carbon-folder',
-          label: '网站',
-        },
-        {
-          icon: 'i-carbon-folder',
-          label: '网站',
-        },
-        {
-          icon: 'i-carbon-folder',
-          label: '网站',
         },
       ],
     },
@@ -27,3 +17,6 @@ export const useMenus = defineStore('menus', () => {
     list,
   }
 })
+
+if (import.meta.hot)
+  import.meta.hot.accept(acceptHMRUpdate(useMenus, import.meta.hot))

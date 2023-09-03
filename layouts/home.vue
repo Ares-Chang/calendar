@@ -1,6 +1,6 @@
 <template>
   <main h-full flex>
-    <Navbar h-full w-80 />
+    <Menubar h-full w-80 />
     <div flex="~ 1 col" overflow-hidden>
       <Titlebar />
       <div flex-1 overflow-auto p-4>
