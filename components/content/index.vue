@@ -3,9 +3,18 @@
 </script>
 
 <template>
-  <div flex="~ col" h-full gap-3 overflow-auto p-0.5>
+  <div class="content" flex="~ col" h-full gap-3 overflow-auto p-0.5>
     <div v-for="item in 10" :key="item">
       <ContentInfoItem />
     </div>
   </div>
 </template>
+
+<style scoped>
+.content::-webkit-scrollbar {
+  display: none;
+}
+.content:hover::-webkit-scrollbar {
+  display: block;
+}
+</style>
