@@ -6,4 +6,5 @@
  interface MenusItem {
   icon: string
   label: string
+  focus: boolean
 }

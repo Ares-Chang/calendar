@@ -4,19 +4,29 @@ import { useMenus } from '~/stores/menus'
 const { list } = useMenus()
 
 const menus = ref<MenusList[]>([
-  ...list,
+  {
+    label: '区域',
+    children: list,
+  },
   {
     label: 'Setting',
     children: [
       {
         icon: 'i-carbon-folder',
         label: '网站',
+        focus: false,
       },
     ],
   },
 ])
 
-const showAdd = ref(false)
+function addMenuItem() {
+  list.push({
+    icon: 'i-carbon-folder',
+    label: '',
+    focus: true,
+  })
+}
 </script>
 
 <template>
@@ -39,12 +49,11 @@ const showAdd = ref(false)
               size="xs"
               icon="i-carbon-add"
               color="gray"
-              @click="showAdd = true"
+              @click="addMenuItem"
             />
           </div>
         </template>
       </MenubarItems>
     </div>
-    <MenubarAdd v-model="showAdd" @close="showAdd = false" />
   </div>
 </template>

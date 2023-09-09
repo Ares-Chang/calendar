@@ -1,15 +1,11 @@
 import { acceptHMRUpdate } from 'pinia'
 
 export const useMenus = defineStore('menus', () => {
-  const list = ref<MenusList[]>([
+  const list = useLocalStorage<MenusItem[]>('calendar-menus', [
     {
-      label: '区域',
-      children: [
-        {
-          icon: 'i-carbon-folder',
-          label: 'Gather',
-        },
-      ],
+      icon: 'i-carbon-folder',
+      label: 'Gather',
+      focus: false,
     },
   ])
 
