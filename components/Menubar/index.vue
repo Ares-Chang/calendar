@@ -42,7 +42,7 @@ function addMenuItem() {
     <div
       v-for="(item, index) in menus" :key="index"
     >
-      <MenubarItems :list="item" :line="index !== menus.length - 1">
+      <MenubarBlock :list="item" :line="index !== menus.length - 1">
         <template v-if="item.label === '区域'" #titleBtn>
           <div flex gap-2>
             <UButton
@@ -53,7 +53,7 @@ function addMenuItem() {
             />
           </div>
         </template>
-      </MenubarItems>
+      </MenubarBlock>
     </div>
   </div>
 </template>
