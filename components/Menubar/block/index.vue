@@ -17,8 +17,9 @@ const { list, line } = defineProps<{
 
     <div
       v-for="(item, index) in list.children" :key="index"
+      my-1 ml-2
     >
-      <MenubarBlockItems :data="item" />
+      <MenubarBlockItems v-model="item.label" :data="item" />
     </div>
 
     <div v-if="line" mt-1 border="b gray-400/50 dark:gray-700/50" />

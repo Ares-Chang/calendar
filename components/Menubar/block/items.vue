@@ -12,14 +12,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div my-1 ml-2>
-    <UInput
-      ref="block"
-      :value="data.label"
-      :disabled="!data.editable"
-      :icon="data.icon" variant="none" size="xl"
-      bg="hover:gray-200 dark:hover:gray-800"
-      focus:outline="1 green solid" cursor-pointer="!"
-    />
-  </div>
+  <UInput
+    ref="block"
+    :value="data.label"
+    :disabled="!data.editable"
+    :icon="data.icon" variant="none" size="xl"
+    bg="hover:gray-200 dark:hover:gray-800"
+    focus:outline="1 green solid" cursor-pointer="!"
+  />
 </template>
