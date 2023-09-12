@@ -6,6 +6,7 @@ export const useMenus = defineStore('menus', () => {
       icon: 'i-carbon-folder',
       label: 'Gather',
       focus: false,
+      editable: true,
     },
   ])
 

@@ -12,14 +12,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    ref="block"
-    tabindex="0" hidefocu
-    bg="hover:gray-200 dark:hover:gray-800"
-    ml-2 flex cursor-pointer items-center gap-2 rd-1 p-2
-    focus:outline="1 green solid"
-  >
-    <i inline-block :class="data.icon" />
-    <span>{{ data.label }}</span>
+  <div my-1 ml-2>
+    <UInput
+      ref="block"
+      :value="data.label"
+      :disabled="!data.editable"
+      :icon="data.icon" variant="none" size="xl"
+      bg="hover:gray-200 dark:hover:gray-800"
+      focus:outline="1 green solid" cursor-pointer="!"
+    />
   </div>
 </template>

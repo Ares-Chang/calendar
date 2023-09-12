@@ -15,6 +15,7 @@ const menus = ref<MenusList[]>([
         icon: 'i-carbon-folder',
         label: '网站',
         focus: false,
+        editable: false,
       },
     ],
   },
@@ -25,6 +26,7 @@ function addMenuItem() {
     icon: 'i-carbon-folder',
     label: '',
     focus: true,
+    editable: true,
   })
 }
 </script>
@@ -43,7 +45,7 @@ function addMenuItem() {
       <div
         v-for="(item, index) in menus" :key="index"
       >
-        <MenubarBlock :list="item" :line="index !== menus.length - 1">
+        <MenubarBlock :list="item" :index="index" :line="index !== menus.length - 1">
           <template v-if="item.label === '区域'" #titleBtn>
             <div flex gap-2>
               <UButton

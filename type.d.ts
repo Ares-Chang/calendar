@@ -7,4 +7,5 @@
   icon: string
   label: string
   focus: boolean
+  editable: boolean
 }
