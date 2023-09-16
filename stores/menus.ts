@@ -1,8 +1,10 @@
 import { acceptHMRUpdate } from 'pinia'
+import { nanoid } from 'nanoid'
 
 export const useMenus = defineStore('menus', () => {
   const list = useLocalStorage<MenusItem[]>('calendar-menus', [
     {
+      id: nanoid(),
       icon: 'i-carbon-folder',
       label: 'Gather',
       focus: false,

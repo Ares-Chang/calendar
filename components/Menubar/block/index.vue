@@ -17,7 +17,7 @@ const { list, line } = defineProps<{
 
     <div flex="~ col" gap-1>
       <MenubarBlockItems
-        v-for="(item, index) in list.children" :key="index"
+        v-for="item in list.children" :key="item.id"
         v-model="item.label" :data="item"
         ml-2
       />

@@ -1,17 +1,21 @@
 <script setup lang="ts">
+import { nanoid } from 'nanoid'
 import { useMenus } from '~/stores/menus'
 
 const { list } = useMenus()
 
 const menus = ref<MenusList[]>([
   {
+    id: nanoid(),
     label: '区域',
     children: list,
   },
   {
+    id: nanoid(),
     label: 'Setting',
     children: [
       {
+        id: nanoid(),
         icon: 'i-carbon-folder',
         label: '网站',
         focus: false,
@@ -23,6 +27,7 @@ const menus = ref<MenusList[]>([
 
 function addMenuItem() {
   list.push({
+    id: nanoid(),
     icon: 'i-carbon-folder',
     label: '',
     focus: true,
@@ -43,7 +48,7 @@ function addMenuItem() {
     </h2>
     <div overflow-auto pr-2>
       <div
-        v-for="(item, index) in menus" :key="index"
+        v-for="(item, index) in menus" :key="item.id"
       >
         <MenubarBlock :list="item" :index="index" :line="index !== menus.length - 1">
           <template v-if="item.label === '区域'" #titleBtn>
