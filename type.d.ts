@@ -1,10 +1,10 @@
- interface MenusList {
+interface MenusList {
   id: string
   label: string
   children: MenusItem[]
 }
 
- interface MenusItem {
+interface MenusItem {
   id: string
   icon: string
   label: string

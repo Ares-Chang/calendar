@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { useLogic } from '~/stores/logic'
+import { useMenus } from '~/stores/menus'
 
-const { data } = defineProps<{
-  data: MenusItem
+const { id } = defineProps<{
+  id: string
 }>()
 
 const { acMenus } = storeToRefs(useLogic())
+const { menus } = useMenus()
+
+const info = computed(() =>
+  menus.map(item =>
+    item.children.find(item => item.id === id),
+  ).filter(Boolean)[0] as MenusItem,
+)
 </script>
 
 <template>
@@ -13,12 +21,12 @@ const { acMenus } = storeToRefs(useLogic())
     bg="hover:gray-200 dark:hover:gray-800"
     flex cursor-pointer items-center gap-2 rd-2 p-3
     :class="{
-      'bg-gray-200 dark:bg-gray-800': acMenus === data.id,
+      'bg-gray-200 dark:bg-gray-800': acMenus === info.id,
     }"
-    @click="acMenus = data.id"
+    @click="acMenus = info.id"
   >
-    <i inline-block :class="data.icon" />
-    <span v-if="data.label">{{ data.label }}</span>
-    <UInput v-else variant="none" size="2xs" :ui="{ wrapper: 'w-full' }" />
+    <i inline-block :class="info.icon" />
+    <span v-if="info.label">{{ info.label }}</span>
+    <UInput v-else v-model="info.label" variant="none" size="2xs" :ui="{ wrapper: 'w-full' }" />
   </div>
 </template>
