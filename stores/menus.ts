@@ -1,19 +1,53 @@
-import { acceptHMRUpdate } from 'pinia'
+import { acceptHMRUpdate, skipHydrate } from 'pinia'
 import { nanoid } from 'nanoid'
 
 export const useMenus = defineStore('menus', () => {
-  const list = useLocalStorage<MenusItem[]>('calendar-menus', [
+  const menus = useLocalStorage<MenusList[]>('calendar-menus', [
     {
       id: nanoid(),
-      icon: 'i-carbon-folder',
-      label: 'Gather',
-      focus: false,
-      editable: true,
+      label: '区域',
+      children: [
+        {
+          id: nanoid(),
+          icon: 'i-carbon-folder',
+          label: 'Gather',
+          focus: false,
+          editable: true,
+        },
+      ],
+    },
+    {
+      id: nanoid(),
+      label: 'Setting',
+      children: [
+        {
+          id: nanoid(),
+          icon: 'i-carbon-folder',
+          label: '网站',
+          focus: false,
+          editable: false,
+        },
+      ],
     },
   ])
 
+  /**
+   * 添加菜单项
+   * @param index 下标
+   */
+  function addMenu(index: number) {
+    menus.value[index].children.push({
+      id: nanoid(),
+      icon: 'i-carbon-folder',
+      label: '',
+      focus: true,
+      editable: true,
+    })
+  }
+
   return {
-    list,
+    menus: skipHydrate(menus),
+    addMenu,
   }
 })
 

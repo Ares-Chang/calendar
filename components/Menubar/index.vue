@@ -1,39 +1,8 @@
 <script setup lang="ts">
-import { nanoid } from 'nanoid'
 import { useMenus } from '~/stores/menus'
 
-const { list } = useMenus()
-
-const menus = ref<MenusList[]>([
-  {
-    id: nanoid(),
-    label: '区域',
-    children: list,
-  },
-  {
-    id: nanoid(),
-    label: 'Setting',
-    children: [
-      {
-        id: nanoid(),
-        icon: 'i-carbon-folder',
-        label: '网站',
-        focus: false,
-        editable: false,
-      },
-    ],
-  },
-])
-
-function addMenuItem() {
-  list.push({
-    id: nanoid(),
-    icon: 'i-carbon-folder',
-    label: '',
-    focus: true,
-    editable: true,
-  })
-}
+const Menus = useMenus()
+const { menus } = storeToRefs(Menus)
 </script>
 
 <template>
@@ -57,7 +26,7 @@ function addMenuItem() {
                 size="xs"
                 icon="i-carbon-add"
                 color="gray"
-                @click="addMenuItem"
+                @click="Menus.addMenu(index)"
               />
             </div>
           </template>
