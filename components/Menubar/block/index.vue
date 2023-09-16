@@ -15,11 +15,12 @@ const { list, line } = defineProps<{
       <slot name="titleBtn" />
     </div>
 
-    <div
-      v-for="(item, index) in list.children" :key="index"
-      my-1 ml-2
-    >
-      <MenubarBlockItems v-model="item.label" :data="item" />
+    <div flex="~ col" gap-1>
+      <MenubarBlockItems
+        v-for="(item, index) in list.children" :key="index"
+        v-model="item.label" :data="item"
+        ml-2
+      />
     </div>
 
     <div v-if="line" mt-1 border="b gray-400/50 dark:gray-700/50" />

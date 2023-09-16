@@ -12,12 +12,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <UInput
-    ref="block"
-    :value="data.label"
-    :disabled="!data.editable"
-    :icon="data.icon" variant="none" size="xl"
+  <div
     bg="hover:gray-200 dark:hover:gray-800"
-    focus:outline="1 green solid" cursor-pointer="!"
-  />
+    flex cursor-pointer items-center gap-2 rd-2 p-3
+    border="~ green solid"
+  >
+    <i inline-block :class="data.icon" />
+    <span v-if="data.label">{{ data.label }}</span>
+    <UInput v-else variant="none" size="2xs" :ui="{ wrapper: 'w-full' }" />
+  </div>
 </template>
