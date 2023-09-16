@@ -16,10 +16,21 @@ const { list, line } = defineProps<{
     </div>
 
     <div flex="~ col" gap-1>
-      <MenubarBlockItems
-        v-for="item in list.children" :id="item.id"
-        :key="item.id" ml-2
-      />
+      <ClientOnly>
+        <MenubarBlockItems
+          v-for="item in list.children" :id="item.id"
+          :key="item.id" ml-2
+        />
+
+        <template #fallback>
+          <div ml-2 flex items-center gap-2 p-3>
+            <i i-carbon-cloud-auditing />
+            <p>
+              Sync Loading...
+            </p>
+          </div>
+        </template>
+      </ClientOnly>
     </div>
 
     <div v-if="line" mt-1 border="b gray-400/50 dark:gray-700/50" />

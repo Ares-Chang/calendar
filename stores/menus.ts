@@ -4,27 +4,23 @@ import { nanoid } from 'nanoid'
 export const useMenus = defineStore('menus', () => {
   const menus = useLocalStorage<MenusList[]>('calendar-menus', [
     {
-      id: nanoid(),
       label: '区域',
       children: [
         {
-          id: nanoid(),
+          id: 'Gather',
           icon: 'i-carbon-folder',
           label: 'Gather',
-          focus: false,
-          editable: true,
+          editable: false,
         },
       ],
     },
     {
-      id: nanoid(),
       label: 'Setting',
       children: [
         {
-          id: nanoid(),
+          id: 'Website',
           icon: 'i-carbon-folder',
           label: '网站',
-          focus: false,
           editable: false,
         },
       ],
@@ -40,8 +36,7 @@ export const useMenus = defineStore('menus', () => {
       id: nanoid(),
       icon: 'i-carbon-folder',
       label: '',
-      focus: true,
-      editable: true,
+      editable: false,
     })
   }
 
