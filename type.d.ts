@@ -1,4 +1,5 @@
 interface MenusList {
+  id: string
   label: string
   children: MenusItem[]
 }

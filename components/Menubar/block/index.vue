@@ -23,12 +23,18 @@ const { list, line } = defineProps<{
         />
 
         <template #fallback>
-          <div ml-2 flex items-center gap-2 p-3>
+          <div v-if="list.id === 'Domain'" ml-2 flex items-center gap-2 p-3>
             <i i-carbon-cloud-auditing />
             <p>
               Sync Loading...
             </p>
           </div>
+          <template v-else>
+            <MenubarBlockItems
+              v-for="item in list.children" :id="item.id"
+              :key="item.id" ml-2
+            />
+          </template>
         </template>
       </ClientOnly>
     </div>

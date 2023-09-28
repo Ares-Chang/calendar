@@ -17,10 +17,10 @@ const { menus } = storeToRefs(Menus)
     </h2>
     <div overflow-auto pr-2>
       <div
-        v-for="(item, index) in menus" :key="index"
+        v-for="(item, index) in menus" :key="item.id"
       >
         <MenubarBlock :list="item" :index="index" :line="index !== menus.length - 1">
-          <template v-if="item.label === '区域'" #titleBtn>
+          <template v-if="item.id === 'Domain'" #titleBtn>
             <div flex gap-2>
               <UButton
                 size="xs"

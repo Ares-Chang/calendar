@@ -5,6 +5,7 @@ export const useMenus = defineStore('menus', () => {
   const userMenus = useLocalStorage<MenusItem[]>('calendar-user-menus', [])
   const menus = reactive<MenusList[]>([
     {
+      id: 'Domain',
       label: '区域',
       children: [
         {
@@ -12,12 +13,13 @@ export const useMenus = defineStore('menus', () => {
           icon: 'i-carbon-folder',
           color: '#f472b6',
           label: 'Gather',
-          editable: true,
+          editable: false,
         },
       ],
     },
     {
-      label: 'Setting',
+      id: 'Setting',
+      label: '设置',
       children: [
         {
           id: 'Website',
@@ -36,7 +38,7 @@ export const useMenus = defineStore('menus', () => {
         icon: 'i-carbon-folder',
         color: '#f472b6',
         label: 'Gather',
-        editable: true,
+        editable: false,
       },
       ...userMenus.value,
     ]
