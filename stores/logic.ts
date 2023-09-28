@@ -1,7 +1,7 @@
 import { acceptHMRUpdate } from 'pinia'
 
 export const useLogic = defineStore('logic', () => {
-  const acMenus = ref('') // 激活菜单
+  const acMenus = ref('Gather') // 激活菜单
 
   return {
     acMenus,
