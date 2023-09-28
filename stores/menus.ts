@@ -9,6 +9,7 @@ export const useMenus = defineStore('menus', () => {
         {
           id: 'Gather',
           icon: 'i-carbon-folder',
+          color: '#f472b6',
           label: 'Gather',
           editable: false,
         },
@@ -19,7 +20,7 @@ export const useMenus = defineStore('menus', () => {
       children: [
         {
           id: 'Website',
-          icon: 'i-carbon-folder',
+          icon: 'i-carbon-settings',
           label: '网站',
           editable: false,
         },
