@@ -17,7 +17,7 @@ const { menus } = storeToRefs(Menus)
     </h2>
     <div overflow-auto pr-2>
       <div
-        v-for="(item, index) in menus" :key="item.id"
+        v-for="(item, index) in menus" :key="index"
       >
         <MenubarBlock :list="item" :index="index" :line="index !== menus.length - 1">
           <template v-if="item.label === '区域'" #titleBtn>
@@ -26,7 +26,7 @@ const { menus } = storeToRefs(Menus)
                 size="xs"
                 icon="i-carbon-add"
                 color="gray"
-                @click="Menus.addMenu(index)"
+                @click="Menus.addMenu"
               />
             </div>
           </template>

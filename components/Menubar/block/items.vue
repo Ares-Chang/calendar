@@ -7,13 +7,9 @@ const { id } = defineProps<{
 }>()
 
 const { acMenus } = storeToRefs(useLogic())
-const { menus } = useMenus()
+const { getMenuInfo } = useMenus()
 
-const info = computed(() =>
-  menus.map(item =>
-    item.children.find(item => item.id === id),
-  ).filter(Boolean)[0] as MenusItem,
-)
+const info = getMenuInfo(id)
 
 const isEdit = ref(false)
 const toogleEdit = useToggle(isEdit)
