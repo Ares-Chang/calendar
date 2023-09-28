@@ -14,6 +14,9 @@ const info = computed(() =>
     item.children.find(item => item.id === id),
   ).filter(Boolean)[0] as MenusItem,
 )
+
+const isEdit = ref(false)
+const toogleEdit = useToggle(isEdit)
 </script>
 
 <template>
@@ -24,11 +27,18 @@ const info = computed(() =>
       'bg-gray-200 dark:bg-gray-800': acMenus === info.id,
     }"
     @click="acMenus = info.id"
+    @dblclick="toogleEdit()"
   >
     <div flex items-center gap-2>
       <i inline-block :class="info.icon" />
-      <span v-if="info.label">{{ info.label }}</span>
-      <UInput v-else v-model="info.label" variant="none" size="2xs" :ui="{ wrapper: 'w-full' }" />
+      <span v-if="!info.editable || !isEdit">{{ info.label }}</span>
+      <UInput
+        v-else
+        v-model="info.label"
+        autofocus
+        variant="none" size="2xs" :ui="{ wrapper: 'w-full' }"
+        @blur="toogleEdit()"
+      />
     </div>
     <div v-if="info.color" h-4 w-4 rd-full :style="{ backgroundColor: info.color }" />
   </div>

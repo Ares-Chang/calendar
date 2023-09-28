@@ -11,7 +11,7 @@ export const useMenus = defineStore('menus', () => {
           icon: 'i-carbon-folder',
           color: '#f472b6',
           label: 'Gather',
-          editable: false,
+          editable: true,
         },
       ],
     },
@@ -37,7 +37,7 @@ export const useMenus = defineStore('menus', () => {
       id: nanoid(),
       icon: 'i-carbon-folder',
       label: '',
-      editable: false,
+      editable: true,
     })
   }
 
