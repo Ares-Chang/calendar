@@ -66,7 +66,7 @@ export const useMenus = defineStore('menus', () => {
       id: nanoid(),
       icon: 'i-carbon-folder',
       label: '',
-      color: '#f472b6',
+      color: useRandomColor(),
       editable: true,
     })
   }
