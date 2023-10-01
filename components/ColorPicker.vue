@@ -7,11 +7,15 @@ defineEmits(['update:modelValue'])
 </script>
 
 <template>
-  <div relative h-4 w-4 rd-full :style="{ backgroundColor: modelValue }">
+  <div
+    relative h-4 w-4 rd-full
+    :class="{ 'cursor-not-allowed': disabled }"
+    :style="{ backgroundColor: modelValue }"
+  >
     <input
       v-if="!disabled"
       value="color" type="color"
-      absolute h-full w-full op-0
+      absolute h-full w-full cursor-pointer op-0
       @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     >
   </div>
