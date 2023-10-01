@@ -9,7 +9,7 @@ const { id } = defineProps<{
 const { acMenus } = storeToRefs(useLogic())
 const { getMenuInfo } = useMenus()
 
-const info = getMenuInfo(id)
+const info = computed(() => getMenuInfo(id))
 
 const isEdit = ref(false)
 const toogleEdit = useToggle(isEdit)
