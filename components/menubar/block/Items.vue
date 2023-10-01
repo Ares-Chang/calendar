@@ -38,8 +38,9 @@ function handleBlur() {
       <UInput
         v-else
         v-model="info.label"
-        autofocus
-        variant="none" size="2xs" :ui="{ wrapper: 'w-full' }"
+        placeholder="添加一个分组"
+        autofocus p-0
+        variant="none" size="xl" :ui="{ wrapper: 'w-full' }"
         @blur="handleBlur"
       />
     </div>
