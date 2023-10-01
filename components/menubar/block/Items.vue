@@ -36,6 +36,6 @@ const toogleEdit = useToggle(isEdit)
         @blur="toogleEdit()"
       />
     </div>
-    <div v-if="info.color" h-4 w-4 rd-full :style="{ backgroundColor: info.color }" />
+    <ColorPicker v-if="info.color" v-model="info.color" :disabled="!info.editable" />
   </div>
 </template>
