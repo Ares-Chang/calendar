@@ -1,5 +1,6 @@
 import { acceptHMRUpdate, skipHydrate } from 'pinia'
 import { nanoid } from 'nanoid'
+import { useLogic } from '~/stores/logic'
 
 export const useMenus = defineStore('menus', () => {
   const userMenus = useLocalStorage<MenusItem[]>('calendar-user-menus', [])
@@ -54,7 +55,19 @@ export const useMenus = defineStore('menus', () => {
       item.children.find(item => item.id === id),
     ).filter(Boolean)[0] as MenusItem
 
-    return info
+    return info || {}
+  }
+
+  /**
+   * 通过 ID 删除指定菜单
+   * @param id 菜单 id
+   */
+  function deleteMenu(id: string) {
+    const index = userMenus.value.findIndex(item => item.id === id)
+    if (index === -1)
+      return
+
+    userMenus.value.splice(index, 1)
   }
 
   /**
@@ -62,18 +75,23 @@ export const useMenus = defineStore('menus', () => {
    * @param index 下标
    */
   function addMenu() {
+    const id = nanoid()
     userMenus.value.push({
-      id: nanoid(),
+      id,
       icon: 'i-carbon-folder',
       label: '',
       color: useRandomColor(),
       editable: true,
     })
+
+    const { acMenus } = storeToRefs(useLogic())
+    acMenus.value = id
   }
 
   return {
     menus: skipHydrate(menus),
     addMenu,
+    deleteMenu,
     getMenuInfo,
   }
 })

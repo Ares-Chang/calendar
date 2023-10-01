@@ -7,12 +7,19 @@ const { id } = defineProps<{
 }>()
 
 const { acMenus } = storeToRefs(useLogic())
-const { getMenuInfo } = useMenus()
+const { getMenuInfo, deleteMenu } = useMenus()
 
 const info = computed(() => getMenuInfo(id))
 
-const isEdit = ref(false)
+const isEdit = ref(!info.value.label)
 const toogleEdit = useToggle(isEdit)
+
+function handleBlur() {
+  if (!info.value.label.trim())
+    deleteMenu(id)
+
+  toogleEdit()
+}
 </script>
 
 <template>
@@ -33,7 +40,7 @@ const toogleEdit = useToggle(isEdit)
         v-model="info.label"
         autofocus
         variant="none" size="2xs" :ui="{ wrapper: 'w-full' }"
-        @blur="toogleEdit()"
+        @blur="handleBlur"
       />
     </div>
     <ColorPicker v-if="info.color" v-model="info.color" :disabled="!info.editable" />
