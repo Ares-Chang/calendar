@@ -33,7 +33,7 @@ function handleBlur() {
     @dblclick="toogleEdit()"
   >
     <div flex="~ 1" items-center gap-2 overflow-hidden>
-      <i inline-block :class="info.icon" />
+      <UIcon :name="info.icon" />
       <span v-if="!info.editable || !isEdit" flex-1 truncate>{{ info.label }}</span>
       <UInput
         v-else

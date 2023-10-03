@@ -1,3 +1,6 @@
+// 以下 magic comment 用于 unocss 强制扫描，生成 icon
+// @unocss-include
+
 import { acceptHMRUpdate, skipHydrate } from 'pinia'
 import { nanoid } from 'nanoid'
 import { useLogic } from '~/stores/logic'
