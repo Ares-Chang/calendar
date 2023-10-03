@@ -5,7 +5,7 @@
 <template>
   <div class="content" flex="~ col" h-full gap-3 overflow-auto p="0.5 r-2">
     <div v-for="item in 10" :key="item">
-      <ContentInfoItem />
+      <TodoContentItem />
     </div>
   </div>
 </template>

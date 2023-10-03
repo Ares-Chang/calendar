@@ -4,10 +4,8 @@
 
 <template>
   <div flex="~ col gap-2" justify-between>
-    <UCard h-50>
-      Body
-    </UCard>
+    <TodoSidebarInfo />
 
-    <SidebarCalendar />
+    <TodoSidebarCalendar />
   </div>
 </template>

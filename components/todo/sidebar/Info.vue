@@ -1,9 +1,9 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: 'home',
-})
+
 </script>
 
 <template>
-  <Todo />
+  <UCard h-50>
+    Body
+  </UCard>
 </template>
