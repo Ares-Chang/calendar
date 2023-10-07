@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { useLogic } from '~/stores/logic'
-import { useMenus } from '~/stores/menus'
 
-const { acMenus } = storeToRefs(useLogic())
-const { getMenuInfo } = useMenus()
-
-const info = computed(() => getMenuInfo(acMenus.value))
+const { acMenuInfo: info } = storeToRefs(useLogic())
 </script>
 
 <template>
