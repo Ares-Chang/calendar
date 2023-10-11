@@ -1,21 +1,11 @@
 <script setup lang="ts">
-import { liveQuery } from 'dexie'
-import { from, useObservable } from '@vueuse/rxjs'
-
-const list = useObservable(
-  from(
-    liveQuery(async () =>
-      await db.menus.where('id').equals('Domain').toArray(),
-    ),
-  ),
-)
-
+const { menus, addMenus } = useMenus()
 watchEffect(() => {
-  console.log(list.value)
+  console.log(menus.value)
 })
 
 function add() {
-  db.menus.add({
+  addMenus({
     id: 'Domain',
     label: 'Domain',
     children: [],
@@ -25,7 +15,7 @@ function add() {
 
 <template>
   <div>
-    {{ list }}
+    {{ menus }}
     <button @click="add">
       add
     </button>
