@@ -1,7 +1,7 @@
 import type { Table } from 'dexie'
 import Dexie from 'dexie'
 
-class MyDexie extends Dexie {
+export class MyDexie extends Dexie {
   menus!: Table<MenusList>
 
   constructor() {
@@ -12,4 +12,10 @@ class MyDexie extends Dexie {
   }
 }
 
-export const db = new MyDexie()
+let db: MyDexie | null
+export function useDB() {
+  if (!db)
+    db = new MyDexie()
+
+  return db
+}

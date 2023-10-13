@@ -1,7 +1,8 @@
 import { liveQuery } from 'dexie'
 import { from, useObservable } from '@vueuse/rxjs'
-import { db } from '~/composables/db'
+import { useDB } from '~/composables/useDB'
 
+const db = useDB()
 export function useMenus() {
   const menus = useObservable(
     from(
