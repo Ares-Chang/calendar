@@ -5,9 +5,18 @@ export default defineNuxtConfig({
   modules: [
     '@vueuse/nuxt',
     '@unocss/nuxt',
-    '@pinia/nuxt',
     '@nuxthq/ui',
     '@vite-pwa/nuxt',
+    [
+      '@pinia/nuxt',
+      {
+        autoImports: [
+          'defineStore',
+          ['defineStore', 'definePiniaStore'],
+          'storeToRefs',
+        ],
+      },
+    ],
   ],
 
   experimental: {
@@ -44,14 +53,6 @@ export default defineNuxtConfig({
   },
 
   pwa,
-
-  pinia: {
-    autoImports: [
-      'defineStore',
-      ['defineStore', 'definePiniaStore'],
-      'storeToRefs',
-    ],
-  },
 
   devtools: {
     enabled: true,
