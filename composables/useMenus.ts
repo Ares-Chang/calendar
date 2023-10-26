@@ -1,23 +1,39 @@
 import { liveQuery } from 'dexie'
 import { from, useObservable } from '@vueuse/rxjs'
+import { nanoid } from 'nanoid'
 import { useDB } from '~/composables/useDB'
 
 const db = useDB()
 export function useMenus() {
   const menus = useObservable(
     from(
-      liveQuery(async () =>
-        await db.menus.where('id').equals('Domain').toArray(),
-      ),
+      liveQuery(async () => await db.menus.orderBy('index').toArray()),
     ),
   )
 
-  function addMenus(data: MenusList) {
-    db.menus.add(data)
+  function addMenu() {
+    db.menus.add({
+      id: nanoid(),
+      index: menus.value!.length,
+      icon: 'i-carbon-folder',
+      label: '',
+      color: useRandomColor(),
+      editable: true,
+    })
+  }
+
+  function updateMenu(item: MenusItem) {
+    db.menus.update(item.id, item)
+  }
+
+  function deleteMenu(id: string) {
+    db.menus.delete(id)
   }
 
   return {
     menus,
-    addMenus,
+    addMenu,
+    updateMenu,
+    deleteMenu,
   }
 }

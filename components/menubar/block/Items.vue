@@ -1,25 +1,32 @@
 <script setup lang="ts">
-import { useLogic } from '~/stores/logic'
-import { useMenus } from '~/stores/menus'
-
-const { id } = defineProps<{
-  id: string
+const { info } = defineProps<{
+  info: MenusItem
 }>()
 
+const { updateMenu } = useMenus()
 const { acMenus } = storeToRefs(useLogic())
-const { getMenuInfo, deleteMenu } = useMenus()
 
-const info = computed(() => getMenuInfo(id))
-
-const isEdit = ref(!info.value.label)
+const isEdit = ref(!info.label)
 const toogleEdit = useToggle(isEdit)
 
+const value = ref(info.label)
 function handleBlur() {
-  if (!info.value.label.trim())
-    deleteMenu(id)
+  if (!value.value.trim())
+    return
+
+  if (value.value !== info.label) // 修改数据
+    updateMenu({ ...info, label: value.value })
 
   toogleEdit()
 }
+
+const color = ref(info.color || '')
+watchEffect(() => {
+  updateMenu({
+    ...info,
+    color: color.value,
+  })
+})
 </script>
 
 <template>
@@ -37,13 +44,13 @@ function handleBlur() {
       <span v-if="!info.editable || !isEdit" flex-1 truncate>{{ info.label }}</span>
       <UInput
         v-else
-        v-model="info.label"
+        v-model="value"
         placeholder="添加一个分组"
         autofocus p-0
         variant="none" size="xl" :ui="{ wrapper: 'w-full' }"
         @blur="handleBlur"
       />
     </div>
-    <ColorPicker v-if="info.color" v-model="info.color" :disabled="!info.editable" />
+    <ColorPicker v-if="info.color" v-model="color" :disabled="!info.editable" />
   </div>
 </template>

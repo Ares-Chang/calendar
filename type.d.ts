@@ -6,6 +6,7 @@ interface MenusList {
 
 interface MenusItem {
   id: string
+  index: number
   icon: string
   label: string
   color?: string

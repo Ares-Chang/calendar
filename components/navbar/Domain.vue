@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { useLogic } from '~/stores/logic'
-
-const { acMenuInfo: info } = storeToRefs(useLogic())
+const { acMenusInfo: info } = storeToRefs(useLogic())
 </script>
 
 <template>

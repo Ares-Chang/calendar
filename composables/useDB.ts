@@ -2,12 +2,12 @@ import type { Table } from 'dexie'
 import Dexie from 'dexie'
 
 export class MyDexie extends Dexie {
-  menus!: Table<MenusList>
+  menus!: Table<MenusItem>
 
   constructor() {
     super('database')
     this.version(0.1).stores({
-      menus: '++index, id, label',
+      menus: 'id, index',
     })
   }
 }

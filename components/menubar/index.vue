@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { useMenus } from '~/stores/menus'
-
-const Menus = useMenus()
-const { menus } = storeToRefs(Menus)
+const logic = useLogic()
+const { menus } = storeToRefs(logic)
 </script>
 
 <template>
@@ -26,7 +24,7 @@ const { menus } = storeToRefs(Menus)
                 size="xs"
                 icon="i-carbon-add"
                 color="gray"
-                @click="Menus.addMenu"
+                @click="logic.addMenu"
               />
             </div>
           </template>
