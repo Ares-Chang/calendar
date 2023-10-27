@@ -28,6 +28,15 @@ export default defineNuxtConfig({
     typedPages: true,
   },
 
+  /**
+   * Vue RFC properties
+   * @see https://github.com/vuejs/rfcs/discussions/502
+   */
+  vue: {
+    defineModel: true,
+    propsDestructure: true,
+  },
+
   css: [
     '@unocss/reset/tailwind.css',
   ],

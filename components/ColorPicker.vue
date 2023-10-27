@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const { modelValue, disabled } = defineProps<{
-  modelValue: string
+const { disabled } = defineProps<{
   disabled?: boolean
 }>()
-defineEmits(['update:modelValue'])
+
+const modelValue = defineModel()
 </script>
 
 <template>
@@ -14,9 +14,8 @@ defineEmits(['update:modelValue'])
   >
     <input
       v-if="!disabled"
-      value="color" type="color"
+      v-model="modelValue" type="color"
       absolute h-full w-full cursor-pointer op-0
-      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     >
   </div>
 </template>
