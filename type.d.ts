@@ -12,3 +12,11 @@ interface MenusItem {
   color?: string
   editable: boolean
 }
+
+interface TodoItem {
+  menus: string
+  id: string
+  index: number
+  label: string
+  done: boolean
+}

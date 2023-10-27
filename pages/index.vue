@@ -5,5 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-  <Todo />
+  <ClientOnly>
+    <Todo />
+  </ClientOnly>
 </template>
