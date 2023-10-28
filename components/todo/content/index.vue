@@ -1,14 +1,16 @@
 <script setup lang="ts">
 const { acMenus } = storeToRefs(useLogic())
-const { list, getDataList, add } = useTodo()
+const { getDataList: getData, add } = useTodo()
+
+const list = ref<TodoItem[]>([])
 
 watchEffect(() => {
   acMenus.value && getDataList()
 })
 
-watchEffect(() => {
-  console.log(list.value, 3)
-})
+async function getDataList() {
+  list.value = await getData()
+}
 </script>
 
 <template>
@@ -22,7 +24,7 @@ watchEffect(() => {
       />
     </div>
     <div v-for="item in list" :key="item.id">
-      <TodoContentItem :info="item" />
+      <TodoContentItem :info="item" @update="getDataList" />
     </div>
   </div>
 </template>

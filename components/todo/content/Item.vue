@@ -3,20 +3,26 @@ const props = defineProps<{
   info: TodoItem
 }>()
 
-const { update, getDataList } = useTodo()
+const exmit = defineEmits<{
+  update: []
+}>()
 
-function changeDone(e: any) {
-  update({ ...props.info, done: e.target.checked })
-  getDataList()
+const { update } = useTodo()
+const done = ref(props.info.done)
+
+// 同步状态，避免更新失败
+watchEffect(() => done.value = props.info.done)
+
+function changeDone() {
+  update({ ...props.info, done: done.value })
+  exmit('update')
 }
 </script>
 
 <template>
   <UCard :ui="{ body: { padding: 'p-4' } }">
     <div flex items-center gap-2>
-      {{ props.info.done }}
-      <UCheckbox :checked="props.info.done" @change="changeDone" />
-      <!-- <UInput v-model="value" variant="none" :ui="{ wrapper: 'w-full' }" /> -->
+      <UCheckbox v-model="done" @change="changeDone" />
       <UInput :value="props.info.label" variant="none" :ui="{ wrapper: 'w-full' }" />
     </div>
   </UCard>

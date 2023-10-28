@@ -6,7 +6,6 @@ import { useDB } from '~/composables/useDB'
 const db = useDB()
 export function useTodo() {
   const { acMenus } = storeToRefs(useLogic())
-  const list = ref<TodoItem[]>([])
 
   const count = useObservable(
     from(
@@ -17,11 +16,9 @@ export function useTodo() {
   async function getDataList() {
     const key = acMenus.value
 
-    if (key === 'Gather') // 查询全部数据
-      list.value = await db.todo.orderBy('index').toArray()
-    else list.value = await db.todo.where('menus').equals(key).sortBy('index') // 查询指定菜单数据
-
-    console.log(2, list.value)
+    if (key === 'Gather')
+      return await db.todo.orderBy('index').toArray() // 查询全部数据
+    else return await db.todo.where('menus').equals(key).sortBy('index') // 查询指定菜单数据
   }
 
   function add() {
@@ -37,15 +34,9 @@ export function useTodo() {
 
   function update(item: TodoItem) {
     db.todo.update(item.id, item)
-    console.log(1, list.value)
   }
 
-  // watchEffect(() => {
-  //   console.log(list.value)
-  // })
-
   return {
-    list,
     add,
     update,
     getDataList,
