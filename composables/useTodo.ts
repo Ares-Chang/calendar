@@ -7,12 +7,6 @@ const db = useDB()
 export function useTodo() {
   const { acMenus } = storeToRefs(useLogic())
 
-  const count = useObservable(
-    from(
-      liveQuery(async () => await db.todo.count()),
-    ),
-  )
-
   async function getDataList() {
     const key = acMenus.value
 
@@ -21,12 +15,13 @@ export function useTodo() {
     else return await db.todo.where('menus').equals(key).sortBy('index') // 查询指定菜单数据
   }
 
-  function add() {
+  async function add() {
+    const count = await db.todo.count()
     db.todo.add({
       menus: acMenus.value,
       id: nanoid(),
-      index: count.value as number,
-      label: `${count.value}`,
+      index: count,
+      label: `${count}`,
       done: false,
     })
     getDataList()
