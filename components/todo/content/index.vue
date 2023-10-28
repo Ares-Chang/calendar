@@ -1,12 +1,13 @@
 <script setup lang="ts">
-const { acMenus } = storeToRefs(useLogic())
+const { acMenus, acTodo } = storeToRefs(useLogic())
 const { getDataList: getData, add } = useTodo()
 
 const list = ref<TodoItem[]>([])
 
-watchEffect(() => {
-  acMenus.value && getDataList()
-})
+watch(acMenus, async () => {
+  await getDataList()
+  acTodo.value = list.value[0].id // 默认选中第一个
+}, { immediate: true })
 
 async function getDataList() {
   list.value = await getData()

@@ -50,10 +50,13 @@ export const useLogic = defineStore('logic', () => {
     return info || {}
   })
 
+  const acTodo = ref('') // 激活 todo
+
   return {
     acMenus,
     menus,
     acMenusInfo,
+    acTodo,
     addMenu,
   }
 })
