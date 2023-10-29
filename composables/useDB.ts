@@ -7,14 +7,16 @@ export class MyDexie extends Dexie {
 
   constructor() {
     super('database')
-    this.version(0.3).stores({
+    this.version(0.5).stores({
       menus: 'id, index',
-      todo: 'id, index, menus',
+      todo: 'id, index, menus, done, date',
     }).upgrade(async (trans) => {
       // 在版本更新函数中执行升级操作
       const todo = trans.table<TodoInfo, string>('todo')
       await todo.toCollection().modify((item: TodoInfo) => {
-        item.menus = ''
+        item.menus = item.menus || ''
+        item.done = item.done || false
+        item.date = item.date || Date.now()
       })
     })
   }

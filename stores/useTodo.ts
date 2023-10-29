@@ -17,9 +17,19 @@ export const useTodo = defineStore('todo', () => {
   async function getDataList() {
     const key = acMenus.value
 
+    let _list = []
+
     if (key === 'Gather')
-      list.value = await db.todo.orderBy('index').toArray() // 查询全部数据
-    else list.value = await db.todo.where('menus').equals(key).sortBy('index') // 查询指定菜单数据
+      _list = await db.todo.orderBy('index').toArray() // 查询全部数据
+    else _list = await db.todo.where('menus').equals(key).sortBy('index') // 查询指定菜单数据
+
+    // 完成情况排序
+    list.value = _list.sort((a, b) => {
+      if (a.done === b.done)
+        return a.index - b.index
+
+      return a.done ? 1 : -1
+    })
   }
 
   async function add() {
@@ -28,6 +38,7 @@ export const useTodo = defineStore('todo', () => {
       menus: acMenus.value,
       id: nanoid(),
       index: count,
+      date: Date.now(),
       label: `${count}`,
       done: false,
     })

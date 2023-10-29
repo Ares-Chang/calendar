@@ -17,6 +17,7 @@ interface TodoInfo {
   menus: string
   id: string
   index: number
+  date: number
   label: string
   done: boolean
 }
