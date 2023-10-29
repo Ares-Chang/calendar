@@ -2,7 +2,7 @@
 const { acMenus, acTodo } = storeToRefs(useLogic())
 const { getDataList: getData, add } = useTodo()
 
-const list = ref<TodoItem[]>([])
+const list = ref<TodoInfo[]>([])
 
 watch(acMenus, async () => {
   await getDataList()

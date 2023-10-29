@@ -45,7 +45,7 @@ export const useLogic = defineStore('logic', () => {
   const acMenusInfo = computed(() => {
     const info = menus.map(item =>
       item.children.find(item => item.id === acMenus.value),
-    ).filter(Boolean)[0] as MenusItem
+    ).filter(Boolean)[0] as MenusInfo
 
     return info || {}
   })

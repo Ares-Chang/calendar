@@ -24,7 +24,7 @@ export function useTodo() {
     })
   }
 
-  function update(item: TodoItem) {
+  function update(item: TodoInfo) {
     db.todo.update(item.id, item)
   }
 

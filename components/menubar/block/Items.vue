@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { info } = defineProps<{
-  info: MenusItem
+  info: MenusInfo
 }>()
 
 const { updateMenu } = useMenus()

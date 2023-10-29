@@ -1,10 +1,10 @@
 interface MenusList {
   id: string
   label: string
-  children: MenusItem[]
+  children: MenusInfo[]
 }
 
-interface MenusItem {
+interface MenusInfo {
   id: string
   index: number
   icon: string
@@ -13,7 +13,7 @@ interface MenusItem {
   editable: boolean
 }
 
-interface TodoItem {
+interface TodoInfo {
   menus: string
   id: string
   index: number

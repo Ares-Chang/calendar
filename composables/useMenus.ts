@@ -22,7 +22,7 @@ export function useMenus() {
     })
   }
 
-  function updateMenu(item: MenusItem) {
+  function updateMenu(item: MenusInfo) {
     db.menus.update(item.id, item)
   }
 

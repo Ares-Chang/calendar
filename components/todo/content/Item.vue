@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-  info: TodoItem
+  info: TodoInfo
 }>()
 
 const exmit = defineEmits<{
@@ -12,7 +12,7 @@ const { acTodo } = storeToRefs(useLogic())
 const { update } = useTodo()
 const done = ref(props.info.done)
 
-function updateInfo(e: Partial<TodoItem>) {
+function updateInfo(e: Partial<TodoInfo>) {
   update({ ...props.info, ...e })
   exmit('update')
 }
