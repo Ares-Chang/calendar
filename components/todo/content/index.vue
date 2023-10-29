@@ -21,7 +21,10 @@ async function getDataList() {
         size="xs"
         icon="i-carbon-add"
         color="gray"
-        @click="add"
+        @click="async () => {
+          await add()
+          getDataList()
+        }"
       />
     </div>
     <div v-for="item in list" :key="item.id">

@@ -1,5 +1,3 @@
-import { liveQuery } from 'dexie'
-import { from, useObservable } from '@vueuse/rxjs'
 import { nanoid } from 'nanoid'
 import { useDB } from '~/composables/useDB'
 
@@ -24,7 +22,6 @@ export function useTodo() {
       label: `${count}`,
       done: false,
     })
-    getDataList()
   }
 
   function update(item: TodoItem) {
