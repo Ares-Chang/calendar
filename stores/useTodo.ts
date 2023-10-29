@@ -39,10 +39,15 @@ export const useTodo = defineStore('todo', () => {
     getDataList()
   }
 
+  async function getInfo(id: string) {
+    return await db.todo.where('id').equals(id).first()
+  }
+
   return {
     list,
     add,
     update,
+    getInfo,
   }
 })
 
