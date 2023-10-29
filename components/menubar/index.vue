@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const logic = useLogic()
-const { menus } = storeToRefs(logic)
+const Menus = useMenus()
+const { menus } = storeToRefs(Menus)
 </script>
 
 <template>
@@ -24,7 +24,7 @@ const { menus } = storeToRefs(logic)
                 size="xs"
                 icon="i-carbon-add"
                 color="gray"
-                @click="logic.addMenu"
+                @click="Menus.add"
               />
             </div>
           </template>

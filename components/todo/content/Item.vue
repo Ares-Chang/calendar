@@ -3,10 +3,6 @@ const props = defineProps<{
   info: TodoInfo
 }>()
 
-const exmit = defineEmits<{
-  update: []
-}>()
-
 const { acTodo } = storeToRefs(useLogic())
 
 const { update } = useTodo()
@@ -14,11 +10,7 @@ const done = ref(props.info.done)
 
 function updateInfo(e: Partial<TodoInfo>) {
   update({ ...props.info, ...e })
-  exmit('update')
 }
-
-// 同步状态，避免更新失败
-watchEffect(() => done.value = props.info.done)
 
 function changeDone() {
   updateInfo({ done: done.value })

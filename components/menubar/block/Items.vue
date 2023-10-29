@@ -3,7 +3,7 @@ const { info } = defineProps<{
   info: MenusInfo
 }>()
 
-const { updateMenu } = useMenus()
+const { update: updateMenu } = useMenus()
 const { acMenus } = storeToRefs(useLogic())
 
 const isEdit = ref(!info.label)
