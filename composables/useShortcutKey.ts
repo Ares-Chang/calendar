@@ -1,14 +1,25 @@
 export function useShortcutKey() {
   const { acMenus, acTodo } = storeToRefs(useLogic())
-  const keys = useMagicKeys()
 
-  whenever(keys.h, () => moveMents('h'))
-  whenever(keys.l, () => moveMents('l'))
+  useMagicKeys({
+    passive: false,
+    onEventFired(e) {
+      if (e.type !== 'keydown')
+        return
+
+      moveTodo(e.key)
+      moveMents(e.key)
+    },
+  })
+
   /**
    * 移动菜单
    * @param type h: 向上移动 l: 向下移动
    */
   function moveMents(type: string) {
+    if (!['h', 'l'].includes(type))
+      return
+
     const step = type === 'h' ? -1 : 1
 
     const { menus } = storeToRefs(useMenus())
@@ -21,13 +32,14 @@ export function useShortcutKey() {
     acMenus.value = id
   }
 
-  whenever(keys.j, () => moveTodo('j'))
-  whenever(keys.k, () => moveTodo('k'))
   /**
    * 移动 Todo
    * @param type j: 向下移动 k: 向上移动
    */
   function moveTodo(type: string) {
+    if (!['j', 'k'].includes(type))
+      return
+
     const step = type === 'j' ? 1 : -1
 
     const { list } = storeToRefs(useTodo())
