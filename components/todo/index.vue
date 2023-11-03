@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+useShortcutKey() // 注册快捷键
 </script>
 
 <template>
