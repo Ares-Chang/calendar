@@ -1,11 +1,16 @@
 export function useShortcutKey() {
   const { acMenus, acTodo } = storeToRefs(useLogic())
 
-  useMagicKeys({
+  const keys = useMagicKeys({
     passive: false,
+    /**
+     * 此回调内持续触发
+     */
     onEventFired(e) {
+      // console.log(e)
       if (e.type !== 'keydown')
         return
+      e.preventDefault()
 
       moveTodo(e.key)
       moveMents(e.key)
@@ -49,5 +54,27 @@ export function useShortcutKey() {
     const id = list.value[index + step]?.id || acTodo.value
 
     acTodo.value = id
+  }
+
+  whenever(keys.tab, addTodo)
+  /**
+   * 添加 Todo
+   */
+  function addTodo() {
+    useTodo().add()
+  }
+
+  whenever(keys.space, doneTodo)
+  /**
+   * 完成 Todo
+   */
+  async function doneTodo() {
+    const { getInfo, update } = useTodo()
+    const info = await getInfo(acTodo.value)
+
+    update({
+      ...info,
+      done: !info.done,
+    })
   }
 }
