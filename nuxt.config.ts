@@ -3,9 +3,9 @@ import { appDescription } from './constants/index'
 
 export default defineNuxtConfig({
   modules: [
+    '@nuxt/ui',
     '@vueuse/nuxt',
     '@unocss/nuxt',
-    '@nuxthq/ui',
     '@vite-pwa/nuxt',
     [
       '@pinia/nuxt',
@@ -40,10 +40,6 @@ export default defineNuxtConfig({
   css: [
     '@unocss/reset/tailwind.css',
   ],
-
-  colorMode: {
-    classSuffix: '',
-  },
 
   app: {
     head: {
