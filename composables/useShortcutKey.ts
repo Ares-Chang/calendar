@@ -2,18 +2,19 @@ export function useShortcutKey() {
   const { acMenus, acTodo } = storeToRefs(useLogic())
 
   const keys = useMagicKeys({
-    passive: false,
     /**
      * 此回调内持续触发
      */
     onEventFired(e) {
-      // console.log(e)
       if (e.type !== 'keydown')
         return
-      e.preventDefault()
 
-      moveTodo(e.key)
-      moveMents(e.key)
+      const key = e.key
+
+      moveTodo(key)
+      moveMents(key)
+      key === 'g' && goTodoTop()
+      key === 'G' && goTodoBottom()
     },
   })
 
@@ -76,5 +77,28 @@ export function useShortcutKey() {
       ...info,
       done: !info.done,
     })
+  }
+
+  let g_lastKeyPressTime = 0
+  /**
+   * Todo 跳转到顶部
+   */
+  function goTodoTop() {
+    const currentKeyPressTime = Date.now()
+
+    // 如果两次按键的时间间隔小于500毫秒，则判定为双击操作
+    if (currentKeyPressTime - g_lastKeyPressTime > 500)
+      return g_lastKeyPressTime = currentKeyPressTime
+
+    const { list } = storeToRefs(useTodo())
+    acTodo.value = list.value[0].id
+  }
+
+  /**
+   * Todo 跳转到底部
+   */
+  function goTodoBottom() {
+    const { list } = storeToRefs(useTodo())
+    acTodo.value = list.value[list.value.length - 1].id
   }
 }
