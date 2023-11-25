@@ -70,7 +70,7 @@ export function useShortcutKey() {
    */
   async function doneTodo() {
     const { getInfo, update } = useTodo()
-    const info = await getInfo(acTodo.value)
+    const info = await getInfo(acTodo.value) as TodoInfo
 
     update({
       ...info,
