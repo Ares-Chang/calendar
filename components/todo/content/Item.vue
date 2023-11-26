@@ -29,12 +29,24 @@ function handleBlur() {
 
   toogleEdit()
 }
+
+const isCheck = computed(() => acTodo.value === props.info.id)
+const el = ref()
+watchEffect(() => {
+  if (!isCheck.value)
+    return
+  el.value.$el.scrollIntoView({
+    behavior: 'auto',
+    block: 'nearest',
+  })
+})
 </script>
 
 <template>
   <UCard
+    ref="el"
     :class="{
-      'border-2 border-green': acTodo === props.info.id,
+      'border-2 border-green': isCheck,
     }"
     :ui="{ body: { padding: 'p-4' } }"
     @click="acTodo = props.info.id"
