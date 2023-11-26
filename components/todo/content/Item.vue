@@ -4,16 +4,14 @@ const props = defineProps<{
 }>()
 
 const { acTodo } = storeToRefs(useLogic())
-
 const { update } = useTodo()
-const done = ref(props.info.done)
 
 function updateInfo(e: Partial<TodoInfo>) {
   update({ ...props.info, ...e })
 }
 
 function changeDone() {
-  updateInfo({ done: done.value })
+  updateInfo({ done: !props.info.done })
 }
 
 const isEdit = ref(false)
@@ -53,7 +51,7 @@ watch(isCheck, () => {
     @dblclick="toogleEdit()"
   >
     <div flex items-center gap-2>
-      <UCheckbox v-model="done" @change="changeDone" />
+      <UCheckbox :model-value="props.info.done" @change="changeDone" />
       <span v-if="!isEdit">{{ props.info.label }}</span>
       <UInput
         v-else
