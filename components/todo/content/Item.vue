@@ -32,7 +32,7 @@ function handleBlur() {
 
 const isCheck = computed(() => acTodo.value === props.info.id)
 const el = ref()
-watchEffect(() => {
+watch(isCheck, () => {
   if (!isCheck.value)
     return
   el.value.$el.scrollIntoView({
