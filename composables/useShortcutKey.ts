@@ -2,6 +2,7 @@ export function useShortcutKey() {
   const { acMenus, acTodo } = storeToRefs(useLogic())
 
   const keys = useMagicKeys({
+    passive: false,
     /**
      * 此回调内持续触发
      */
@@ -12,6 +13,11 @@ export function useShortcutKey() {
       const key = e.key
 
       switch (key) {
+        case 'Tab':
+          // 禁用 Tab 键的默认动作
+          e.preventDefault()
+          break
+
         case 'h':
         case 'l':
           moveMents(key)
