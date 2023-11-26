@@ -34,6 +34,10 @@ export function useShortcutKey() {
         case 'G':
           goTodoBottom()
           break
+
+        case 'd':
+          removeTodo()
+          break
       }
     },
   })
@@ -114,5 +118,19 @@ export function useShortcutKey() {
   function goTodoBottom() {
     const { list } = storeToRefs(useTodo())
     acTodo.value = list.value[list.value.length - 1].id
+  }
+
+  let d_lastKeyPressTime = 0
+  /**
+   * 删除 Todo
+   */
+  function removeTodo() {
+    const currentKeyPressTime = Date.now()
+
+    if (currentKeyPressTime - d_lastKeyPressTime > 500)
+      return d_lastKeyPressTime = currentKeyPressTime
+
+    const { remove } = useTodo()
+    remove(acTodo.value)
   }
 }

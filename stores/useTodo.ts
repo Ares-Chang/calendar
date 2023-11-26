@@ -57,10 +57,16 @@ export const useTodo = defineStore('todo', () => {
     return await db.todo.where('id').equals(id).first()
   }
 
+  function remove(id: string) {
+    db.todo.delete(id)
+    getDataList()
+  }
+
   return {
     list,
     add,
     update,
+    remove,
     getInfo,
   }
 })
