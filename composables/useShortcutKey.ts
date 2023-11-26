@@ -11,21 +11,34 @@ export function useShortcutKey() {
 
       const key = e.key
 
-      moveTodo(key)
-      moveMents(key)
-      key === 'g' && goTodoTop()
-      key === 'G' && goTodoBottom()
+      switch (key) {
+        case 'h':
+        case 'l':
+          moveMents(key)
+          break
+
+        case 'j':
+        case 'k':
+          moveTodo(key)
+          break
+
+        case 'g':
+          goTodoTop()
+          break
+        case 'G':
+          goTodoBottom()
+          break
+      }
     },
   })
+  whenever(keys.tab, addTodo)
+  whenever(keys.space, doneTodo)
 
   /**
    * 移动菜单
    * @param type h: 向上移动 l: 向下移动
    */
   function moveMents(type: string) {
-    if (!['h', 'l'].includes(type))
-      return
-
     const step = type === 'h' ? -1 : 1
 
     const { menus } = storeToRefs(useMenus())
@@ -43,9 +56,6 @@ export function useShortcutKey() {
    * @param type j: 向下移动 k: 向上移动
    */
   function moveTodo(type: string) {
-    if (!['j', 'k'].includes(type))
-      return
-
     const step = type === 'j' ? 1 : -1
 
     const { list } = storeToRefs(useTodo())
@@ -57,7 +67,6 @@ export function useShortcutKey() {
     acTodo.value = id
   }
 
-  whenever(keys.tab, addTodo)
   /**
    * 添加 Todo
    */
@@ -65,7 +74,6 @@ export function useShortcutKey() {
     useTodo().add()
   }
 
-  whenever(keys.space, doneTodo)
   /**
    * 完成 Todo
    */
