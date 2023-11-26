@@ -77,7 +77,7 @@ export function useShortcutKey() {
    * 添加 Todo
    */
   function addTodo() {
-    useTodo().add()
+    useTodo().add(`${Date.now()}`)
   }
 
   /**

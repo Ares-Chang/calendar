@@ -32,14 +32,17 @@ export const useTodo = defineStore('todo', () => {
     })
   }
 
-  async function add() {
+  async function add(label: string | null) {
+    if (!label?.trim())
+      return
+
     const count = await db.todo.count()
     db.todo.add({
       menus: acMenus.value,
       id: nanoid(),
       index: count,
       date: Date.now(),
-      label: `${count}`,
+      label,
       done: false,
     })
     getDataList()
