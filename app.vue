@@ -12,23 +12,3 @@ useHead({
     <NuxtPage />
   </NuxtLayout>
 </template>
-
-<style>
-html, body , #__nuxt{
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
-html.dark {
-  background: #111827;
-  color: white;
-}
-
-::-webkit-scrollbar {
-  --uno: w-2 h-2 bg-dark/20;
-}
-::-webkit-scrollbar-thumb {
-  --uno: bg-dark-100;
-}
-</style>

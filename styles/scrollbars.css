@@ -1,0 +1,9 @@
+::-webkit-scrollbar {
+  --uno: w-2.5 bg-slate-200/40 dark:bg-slate-600/20;
+}
+::-webkit-scrollbar-thumb {
+  --uno: bg-slate-300/80 dark:bg-slate-700/80 rd-2;
+}
+::-webkit-scrollbar-thumb:hover {
+  --uno: bg-slate-300 dark:bg-slate-700;
+}

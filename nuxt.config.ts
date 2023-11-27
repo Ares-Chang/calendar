@@ -39,6 +39,8 @@ export default defineNuxtConfig({
 
   css: [
     '@unocss/reset/tailwind.css',
+    '~/styles/global.css',
+    '~/styles/scrollbars.css',
   ],
 
   app: {
