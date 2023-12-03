@@ -11,4 +11,6 @@ useHead({
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+
+  <UNotifications sm:w-96 />
 </template>
