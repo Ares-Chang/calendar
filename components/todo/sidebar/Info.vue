@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { UButton } from '#components'
+
 const { acTodo } = storeToRefs(useLogic())
 const { getInfo } = useTodo()
 
@@ -11,14 +13,6 @@ interface Cols {
   formatting?: (e: any) => any
 }
 const columns: Cols[] = [
-  {
-    key: 'id',
-    label: 'ID',
-  },
-  {
-    key: 'index',
-    label: '序号',
-  },
   {
     key: 'date',
     label: '时间',
@@ -37,10 +31,31 @@ const columns: Cols[] = [
 </script>
 
 <template>
-  <UCard h-50 overflow-auto>
+  <UCard
+    v-if="info"
+    :ui="{
+      header: {
+        padding: 'py-2',
+      },
+    }"
+    h-50 overflow-auto
+  >
+    <template #header>
+      <div flex justify-between>
+        <span>#{{ info.index }}</span>
+        <UButton
+          icon="i-carbon-trash-can"
+          size="2xs"
+          color="red"
+          square
+        />
+      </div>
+    </template>
+
     <div v-for="{ key, label, formatting } in columns" :key="key" flex gap-2>
       <span>{{ label }}:</span>
-      <span v-html="formatting ? formatting((info as AnyKey)?.[key]) : (info as AnyKey)?.[key]" />
+      <span>{{ formatting ? formatting((info as AnyKey)[key]) : (info as AnyKey)[key] }}</span>
     </div>
   </UCard>
+  <div v-else />
 </template>
