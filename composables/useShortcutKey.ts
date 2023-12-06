@@ -58,7 +58,10 @@ export function useShortcutKey() {
    */
   async function doneTodo() {
     const { getInfo, update } = useTodo()
-    const info = await getInfo(acTodo.value) as TodoInfo
+    const info = await getInfo(acTodo.value)
+
+    if (!info)
+      return
 
     update({
       ...info,
@@ -86,6 +89,9 @@ export function useShortcutKey() {
    * 删除 Todo
    */
   function removeTodo() {
+    if (!acTodo.value)
+      return
+
     const { remove } = useTodo()
     remove(acTodo.value)
   }
