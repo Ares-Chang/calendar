@@ -1,48 +1,17 @@
 export function useShortcutKey() {
   const { acMenus, acTodo } = storeToRefs(useLogic())
 
-  const keys = useMagicKeys({
-    passive: false,
-    /**
-     * 此回调内持续触发
-     */
-    onEventFired(e) {
-      if (e.type !== 'keydown')
-        return
-
-      const key = e.key
-
-      switch (key) {
-        case 'Tab':
-          // 禁用 Tab 键的默认动作
-          e.preventDefault()
-          break
-
-        case 'h':
-        case 'l':
-          moveMents(key)
-          break
-
-        case 'j':
-        case 'k':
-          moveTodo(key)
-          break
-
-        case 'g':
-          goTodoTop()
-          break
-        case 'G':
-          goTodoBottom()
-          break
-
-        case 'd':
-          removeTodo()
-          break
-      }
-    },
+  defineShortcuts({
+    'h': () => moveMents('h'),
+    'l': () => moveMents('l'),
+    'j': () => moveTodo('j'),
+    'k': () => moveTodo('k'),
+    'g-g': () => goTodoTop(),
+    'shift_G': () => goTodoBottom(),
+    'd-d': () => removeTodo(),
+    ' ': () => doneTodo(),
+    'Tab': () => addTodo(),
   })
-  whenever(keys.tab, addTodo)
-  whenever(keys.space, doneTodo)
 
   /**
    * 移动菜单
@@ -97,17 +66,10 @@ export function useShortcutKey() {
     })
   }
 
-  let g_lastKeyPressTime = 0
   /**
    * Todo 跳转到顶部
    */
   function goTodoTop() {
-    const currentKeyPressTime = Date.now()
-
-    // 如果两次按键的时间间隔小于500毫秒，则判定为双击操作
-    if (currentKeyPressTime - g_lastKeyPressTime > 500)
-      return g_lastKeyPressTime = currentKeyPressTime
-
     const { list } = storeToRefs(useTodo())
     acTodo.value = list.value[0].id
   }
@@ -120,16 +82,10 @@ export function useShortcutKey() {
     acTodo.value = list.value[list.value.length - 1].id
   }
 
-  let d_lastKeyPressTime = 0
   /**
    * 删除 Todo
    */
   function removeTodo() {
-    const currentKeyPressTime = Date.now()
-
-    if (currentKeyPressTime - d_lastKeyPressTime > 500)
-      return d_lastKeyPressTime = currentKeyPressTime
-
     const { remove } = useTodo()
     remove(acTodo.value)
   }
