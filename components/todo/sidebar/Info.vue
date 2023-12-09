@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UButton } from '#components'
+import { removeTodo } from '~/composables/handle/todo'
 
 const { acTodo } = storeToRefs(useLogic())
 const { getInfo } = useTodo()
@@ -43,12 +43,15 @@ const columns: Cols[] = [
     <template #header>
       <div flex justify-between>
         <span>#{{ info.index }}</span>
-        <UButton
-          icon="i-carbon-trash-can"
-          size="2xs"
-          color="red"
-          square
-        />
+        <UTooltip text="Delete" :shortcuts="['d', 'd']">
+          <UButton
+            icon="i-carbon-trash-can"
+            size="2xs"
+            color="red"
+            square
+            @click="removeTodo"
+          />
+        </UTooltip>
       </div>
     </template>
 

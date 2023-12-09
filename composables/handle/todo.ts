@@ -18,8 +18,8 @@ export function moveTodo(type: string) {
 /**
  * 添加 Todo
  */
-export function addTodo() {
-  useTodo().add(`${Date.now()}`)
+export function addTodo(value?: string | undefined) {
+  useTodo().add(`${value || Date.now()}`)
 }
 
 /**

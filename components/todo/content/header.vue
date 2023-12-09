@@ -1,15 +1,16 @@
 <script setup lang="ts">
-const todo = useTodo()
+import { addTodo } from '~/composables/handle/todo'
+
 const value = ref('')
 
-function addTodo() {
-  todo.add(value.value)
+function handleAdd() {
+  addTodo(value.value)
   value.value = ''
 }
 </script>
 
 <template>
-  <div flex gap-2>
+  <div flex gap-3>
     <UInput
       v-model="value"
       placeholder="添加一个任务"
@@ -18,10 +19,12 @@ function addTodo() {
       :ui="{ wrapper: 'w-full' }"
     />
 
-    <UButton
-      icon="i-carbon-add"
-      label="Add"
-      @click="addTodo"
-    />
+    <UTooltip text="Add" :shortcuts="['Tab']">
+      <UButton
+        icon="i-carbon-add"
+        label="Add"
+        @click="handleAdd"
+      />
+    </UTooltip>
   </div>
 </template>
