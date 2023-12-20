@@ -24,12 +24,7 @@ export const useTodo = defineStore('todo', () => {
     else _list = await db.todo.where('menus').equals(key).sortBy('index') // 查询指定菜单数据
 
     // 完成情况排序
-    list.value = _list.sort((a, b) => {
-      if (a.done === b.done)
-        return a.index - b.index
-
-      return a.done ? 1 : -1
-    })
+    list.value = _list.sort(a => a.done ? 1 : -1)
   }
 
   async function add(label: string | null) {
